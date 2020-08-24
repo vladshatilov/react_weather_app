@@ -11,3 +11,68 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html, body {
+  height: 100%;
+}
+
+.wrapper {
+	max-width: 1080px;
+	margin: auto;
+	height:100%; 
+	padding: 20px 0;
+	padding-bottom : 50px;
+}
+
+.selectHandler{
+	padding: 0px 15px;
+	margin: auto;
+}
+
+/*.summary{
+	float: left;
+}*/
+
+.picWithTemp{
+	height: 50px;
+    width: auto;
+}
+
+/*.footer {
+	position : fixed;
+	height : 50px;
+	bottom : 0;
+}
+
+*/
+.footer-content {
+	width: 100%;
+	margin: auto;
+	background: #D3D3D3;
+	color: #000000;
+	font-size: 11px;
+	position : fixed;
+	height : 50px;
+	bottom : 0;
+}
+
+/*footer {
+	margin: auto;
+	max-width: 960px;
+	margin: auto;
+	padding: 10px 0;
+	height: 90px;
+	position : fixed;
+	height : 50px;
+	bottom : 0;
+}*/
+
+#footer-logo {
+	float: right;
+	font-size: 10px;
+	text-align: right;
+}
+
+
+
+
