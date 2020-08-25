@@ -1,3 +1,8 @@
+### Open deployment -> let the app find your location (or don't let him as you wish) and allow PopUp windows (to ensure background video change on clicking at another city)
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
