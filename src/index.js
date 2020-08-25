@@ -1,23 +1,12 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Geolocation from '@react-native-community/geolocation';
 import "bootswatch/dist/litera/bootstrap.css";
 import Loader from './Loader/Loader.js';
 import { Navbar, NavItem, Nav, Container , Row, Col } from "react-bootstrap";
-// ReactDOM.render(
-//	 <React.StrictMode>
-//		 <App />
-//	 </React.StrictMode>,
-//	 document.getElementById('root')
-// );
 
-// // If you want your app to work offline and load faster, you can change
-// // unregister() to register() below. Note this comes with some pitfalls.
-// // Learn more about service workers: https://bit.ly/CRA-PWA
-// serviceWorker.unregister();
 
 
 const PLACES = [
@@ -26,7 +15,7 @@ const PLACES = [
 	{ name: "New York", zip: "94088" },
 	{ name: "Hong Kong", zip: "95062" },
 	{ name: "Doha", zip: "95062" },
-	{ name: "Yakutsk", zip: "95062" },
+	{ name: "Moscow", zip: "95062" },
 	{ name: "Sydney", zip: "96803" }
 ];
 
@@ -41,9 +30,6 @@ class App extends React.Component {
 			'units': 'metric'
 		}
 		Geolocation.getCurrentPosition(info => console.log(info));
-		// jQuery(function(){
-	 //      jQuery("#[playerID]").YTPlayer();
-	 //    });
 	}
 	
 	componentDidMount(){		
@@ -57,30 +43,36 @@ class App extends React.Component {
 				let latitude = position.coords.latitude
 				let longitude = position.coords.longitude
 				let units = this.state.units;
-				// let location = latitude + "," + longitude + "?units=" + units
-				// let fetchJsonp = require("fetch-jsonp");
-				// //darkSky
-				// let url = "https://api.darksky.net/forecast/04c3762b193aaee40affb899992cef3e/" + location
-				// fetchJsonp(url).then( (response) => response.json().then( (json) => this.setState({weather: json}) ) )
-
-
-
-				// https://api.darksky.net/forecast/04c3762b193aaee40affb899992cef3e/55.7522,37.6156
-
-				// http://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=f8cfda0ca4b8ccfef50bf143d6133107&units=imperial
-				// Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
-
-				//openWeather
-				// http://api.openweathermap.org/data/2.5/weather?lat=55.7522&lon=37.6156&appid=f8cfda0ca4b8ccfef50bf143d6133107&units=metric
 
 				let location = (this.state.activePlace === "My location"
-									?  `lat=${latitude}&lon=${longitude}`
+									?	`lat=${latitude}&lon=${longitude}`
 									: `q=${this.state.activePlace}`)
 				let url = `http://api.openweathermap.org/data/2.5/weather?${location}&appid=f8cfda0ca4b8ccfef50bf143d6133107&units=${units}`;
 				let fetchJsonp = require("fetch-jsonp");
-				fetchJsonp(url).then( (response) => response.json().then( (json) => {this.setState({weather: json, activePlace: json.name});console.log(json.name);} ) )
+				fetchJsonp(url).then( (response) => response.json().then( (json) => {this.setState({weather: json, activePlace: json.name});} ) )
 				// console.log(this.state.weather);
-			})
+			},
+			(error) =>
+				{
+					let units = this.state.units;
+					let location = `q=${this.state.activePlace}`;
+					let url = `http://api.openweathermap.org/data/2.5/weather?${location}&appid=f8cfda0ca4b8ccfef50bf143d6133107&units=${units}`;
+					let fetchJsonp = require("fetch-jsonp");
+					fetchJsonp(url).then( (response) => response.json().then( (json) => {this.setState({weather: json, activePlace: json.name});} ) )
+					// если ошибка (можно проверить код ошибки)
+					if(error.PERMISSION_DENIED)
+					{
+						// console.log("В доступе отказано!");
+					}
+				}
+			)
+		}
+		else {
+			let units = this.state.units;
+			let location = `q=${this.state.activePlace}`;
+			let url = `http://api.openweathermap.org/data/2.5/weather?${location}&appid=f8cfda0ca4b8ccfef50bf143d6133107&units=${units}`;
+			let fetchJsonp = require("fetch-jsonp");
+			fetchJsonp(url).then( (response) => response.json().then( (json) => {this.setState({weather: json, activePlace: json.name});console.log(json.name);} ) )
 		}
 	}
 	
@@ -90,34 +82,6 @@ class App extends React.Component {
 			: this.setState({units: 'metric'});
 		this.getLocationAndWeather();
 		console.log('Clicked!');
-		document.getElementById('subtitleHandler').style.visibility='hidden';
-	
-
-		// https://robwu.nl/cors-anywhere.html
-		// https://cors-anywhere.herokuapp.com/
-		// https://github.com/Rob--W/cors-anywhere/#documentation
-
-		// https://cloud.yandex.ru/docs/translate/api-ref/Translation/translate#responses
-
-		// https://cloud.yandex.ru/docs/cli/quickstart#install
-		// https://cloud.yandex.ru/docs/iam/operations/iam-token/create
-
-	// 	fetch('https://cors-anywhere.herokuapp.com/translate.api.cloud.yandex.net/translate/v2/translate', {
-	// 	method: 'POST',
-		// body: JSON.stringify({
-		// 	"sourceLanguageCode": "en",
-		// 	"targetLanguageCode": "ru",
-		// 	"format": "PLAIN_TEXT",
-		// 	"texts": [
-		// 		"string"
-		// 	],
-			
-			
-		// }),
-		
-	// 	})
-	// 	.then(response => response.json())
-	// 	.then(json => console.log(json))
 	}
 
 
@@ -128,7 +92,12 @@ class App extends React.Component {
 		this.setState({
 			activePlace : name
 		}, () => {
-				this.getLocationAndWeather();
+			// console.log(this.state.activePlace);
+			// console.log(this.state.activePlace === "Sydney");
+			
+			this.getLocationAndWeather();
+			let video = document.getElementById('video_background');
+			video.load();
 			});
 		// console.log(name);
 	}
@@ -167,7 +136,8 @@ class App extends React.Component {
 					<a className="navbar-brand" href="#">{title}</a>				
 				</nav>
 
-
+				
+					<VideoHandler weatherCondHandle={summary} />
 				
 
 				<div className="wrapper">
@@ -177,7 +147,7 @@ class App extends React.Component {
 								<div className='selectHandler'>Select city:</div>
 								<Nav
 									bsStyle="pills"
-          							stacked="true"
+										stacked="true"
 									activeKey={activePlace}
 									onSelect={index => {
 										this.setState({ activePlace: index });
@@ -205,7 +175,6 @@ class App extends React.Component {
 									<div onClick={this.onDegClick.bind(this)} >Wind Speed: {windSpeed} {this.state.units =='metric' ? 'meter/sec':'miles/hour'}</div>
 									
 								</div>
-								<div id="bgndVideo" class="player" data-property="{videoURL:'http://youtu.be/BsekcY04xvQ',containment:'body',autoPlay:true, mute:true, startAt:0, opacity:1}">My video</div>
 							</Col>
 						</Row>
 					</Container>
@@ -220,7 +189,61 @@ class App extends React.Component {
 
 
 
+function VideoHandler(props){
+			const weatherCondition = {'Thunderstorm':["https://cdn.flixel.com/flixel/13e0s6coh6ayapvdyqnv.hd"
+							  , "https://cdn.flixel.com/flixel/aorl3skmssy7udwopk22.hd"
+							  , "https://cdn.flixel.com/flixel/qed6wvf2igukiioykg3r.hd"
+							  , "https://cdn.flixel.com/flixel/3rd72eezaj6d23ahlo7y.hd"
+							  , "https://cdn.flixel.com/flixel/9m11gd43m6qn3y93ntzp.hd"
+							  , "https://cdn.flixel.com/flixel/hrkw2m8eofib9sk7t1v2.hd"],
+						'Drizzle':["https://cdn.flixel.com/flixel/vwqzlk4turo2449be9uf.hd"
+							  , "https://cdn.flixel.com/flixel/5363uhabodwwrzgnq6vx.hd"],
+						'Rain':["https://cdn.flixel.com/flixel/f0w23bd0enxur5ff0bxz.hd"],
+						'Snow':["https://cdn.flixel.com/flixel/x9dr8caygivq5secll7i.hd"
+							  , "https://cdn.flixel.com/flixel/v26zyfd6yf0r33s46vpe.hd"
+							  , "https://cdn.flixel.com/flixel/ypy8bw9fgw1zv2b4htp2.hd"
+							  , "https://cdn.flixel.com/flixel/rosz2gi676xhkiw1ut6i.hd"
+						],
+						'Clear':["https://cdn.flixel.com/flixel/hlhff0h8md4ev0kju5be.hd"
+							  , "https://cdn.flixel.com/flixel/zjqsoc6ecqhntpl5vacs.hd"
+							  , "https://cdn.flixel.com/flixel/jvw1avupguhfbo11betq.hd"
+							  , "https://cdn.flixel.com/flixel/8cmeusxf3pkanai43djs.hd"
+							  , "https://cdn.flixel.com/flixel/guwb10mfddctfvwioaex.hd"],
+						'Clouds':["https://cdn.flixel.com/flixel/e95h5cqyvhnrk4ytqt4q.hd"
+							  , "https://cdn.flixel.com/flixel/l2bjw34wnusyf5q2qq3p.hd"
+							  , "https://cdn.flixel.com/flixel/rrgta099ulami3zb9fd2.hd"
+							  , "https://cdn.flixel.com/flixel/13e0s6coh6ayapvdyqnv.hd"
+							  , "https://cdn.flixel.com/flixel/aorl3skmssy7udwopk22.hd"
+							  , "https://cdn.flixel.com/flixel/qed6wvf2igukiioykg3r.hd"
+							  , "https://cdn.flixel.com/flixel/3rd72eezaj6d23ahlo7y.hd"
+							  , "https://cdn.flixel.com/flixel/9m11gd43m6qn3y93ntzp.hd"
+							  , "https://cdn.flixel.com/flixel/hrkw2m8eofib9sk7t1v2.hd"]};
 
+							 let bacgroundVideoHandle = '';
+			if (props.weatherCondHandle in weatherCondition){
+				bacgroundVideoHandle = weatherCondition[props.weatherCondHandle][Math.floor(Math.random() * (weatherCondition[props.weatherCondHandle].length ))]
+				console.log(bacgroundVideoHandle);
+			}
+			else {
+				bacgroundVideoHandle = 'https://cdn.flixel.com/flixel/ypy8bw9fgw1zv2b4htp2.hd';
+			}
+
+			let mp4Name = `${bacgroundVideoHandle}.mp4`;
+			let webmName = `${bacgroundVideoHandle}.webm`;
+			let ogvName = `${bacgroundVideoHandle}.ogv`;
+
+			
+		return (	<div className="fullscreen-bg"> 
+								<video id='video_background' loop muted autoPlay poster="img/videoframe.jpg" className="fullscreen-bg__video"> 										
+									<source src={mp4Name} type="video/webm" /> 
+									<source src={webmName} type="video/webm"/>
+									<source src={ogvName} type="video/ogg"/>
+									<p>Your browser does not support the video element. Try this page in a modern browser!</p>
+								</video> 
+			</div> 
+		)
+	
+}
 
 
 

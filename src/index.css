@@ -73,6 +73,25 @@ html, body {
 	text-align: right;
 }
 
+.infopanel{
+	font-size: 30px;
+	-webkit-text-stroke: 1px dark blue;
+}
 
-
-
+.fullscreen-bg { 
+    position: fixed; 
+    top: 0; 
+    right: 0; 
+    bottom: 0; 
+    left: 0; 
+    /*overflow: hidden; */
+    z-index: -100; 
+} 
+.fullscreen-bg__video { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    .crop img {max-height:170px; max-width:180px;}
+    /*width: max(100vw, 400px); 
+    height: max(100vw, 400px); */
+} 
