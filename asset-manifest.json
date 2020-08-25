@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/react_weather_app/static/css/main.e888fd4a.chunk.css",
-    "main.js": "/react_weather_app/static/js/main.3178e3b0.chunk.js",
-    "main.js.map": "/react_weather_app/static/js/main.3178e3b0.chunk.js.map",
+    "main.css": "/react_weather_app/static/css/main.c6a6e029.chunk.css",
+    "main.js": "/react_weather_app/static/js/main.382d84d8.chunk.js",
+    "main.js.map": "/react_weather_app/static/js/main.382d84d8.chunk.js.map",
     "runtime-main.js": "/react_weather_app/static/js/runtime-main.e979c172.js",
     "runtime-main.js.map": "/react_weather_app/static/js/runtime-main.e979c172.js.map",
     "static/css/2.d7539782.chunk.css": "/react_weather_app/static/css/2.d7539782.chunk.css",
-    "static/js/2.20531336.chunk.js": "/react_weather_app/static/js/2.20531336.chunk.js",
-    "static/js/2.20531336.chunk.js.map": "/react_weather_app/static/js/2.20531336.chunk.js.map",
+    "static/js/2.37f91658.chunk.js": "/react_weather_app/static/js/2.37f91658.chunk.js",
+    "static/js/2.37f91658.chunk.js.map": "/react_weather_app/static/js/2.37f91658.chunk.js.map",
     "index.html": "/react_weather_app/index.html",
-    "precache-manifest.ce688d7f0d0e3753c24701905a64057a.js": "/react_weather_app/precache-manifest.ce688d7f0d0e3753c24701905a64057a.js",
+    "precache-manifest.c3940e8d744e40a56207ee4d35fe2474.js": "/react_weather_app/precache-manifest.c3940e8d744e40a56207ee4d35fe2474.js",
     "service-worker.js": "/react_weather_app/service-worker.js",
     "static/css/2.d7539782.chunk.css.map": "/react_weather_app/static/css/2.d7539782.chunk.css.map",
-    "static/css/main.e888fd4a.chunk.css.map": "/react_weather_app/static/css/main.e888fd4a.chunk.css.map",
-    "static/js/2.20531336.chunk.js.LICENSE.txt": "/react_weather_app/static/js/2.20531336.chunk.js.LICENSE.txt"
+    "static/css/main.c6a6e029.chunk.css.map": "/react_weather_app/static/css/main.c6a6e029.chunk.css.map",
+    "static/js/2.37f91658.chunk.js.LICENSE.txt": "/react_weather_app/static/js/2.37f91658.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e979c172.js",
     "static/css/2.d7539782.chunk.css",
-    "static/js/2.20531336.chunk.js",
-    "static/css/main.e888fd4a.chunk.css",
-    "static/js/main.3178e3b0.chunk.js"
+    "static/js/2.37f91658.chunk.js",
+    "static/css/main.c6a6e029.chunk.css",
+    "static/js/main.382d84d8.chunk.js"
   ]
 }
